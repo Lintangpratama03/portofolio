@@ -504,6 +504,7 @@
             opacity: 0;
             transform: scale(0.9);
             transition: all 0.6s;
+            height: 450px;
         }
         
         .project-card.visible {
@@ -514,7 +515,7 @@
         .project-card-inner {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 100%;
             transition: transform 0.8s;
             transform-style: preserve-3d;
         }
@@ -537,24 +538,41 @@
         
         .project-card-front {
             background: white;
-            cursor: pointer;
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 80px;
-            color: white;
-            position: relative;
-            overflow: hidden;
+            padding: 40px;
+            gap: 30px;
         }
         
-        .project-image::before {
+        .project-card-front:hover {
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+        
+        .project-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            position: relative;
+            transition: all 0.3s;
+            cursor: zoom-in;
+        }
+        
+        .project-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .project-image::after {
             content: '';
             position: absolute;
             top: -50%;
@@ -575,29 +593,41 @@
             }
         }
         
-        .project-emoji {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        
-        @keyframes bounce {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-        
         .project-title {
             font-size: 22px;
             font-weight: 700;
-            color: white;
+            color: #1a202c;
             text-align: center;
-            padding: 0 20px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            font-size: 14px;
+        }
+        
+        .detail-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
         
         .project-card-back {
@@ -606,7 +636,7 @@
             padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
         }
         
         .project-desc {
@@ -837,6 +867,78 @@
             transform-origin: left;
             transition: transform 0.1s;
         }
+        
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s;
+        }
+        
+        .fullscreen-modal.active {
+            display: flex;
+        }
+        
+        .fullscreen-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            animation: zoomIn 0.3s;
+        }
+        
+        .close-fullscreen {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .close-fullscreen:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -847,6 +949,11 @@
     <div class="scroll-progress"></div>
 
     <div class="particles" id="particles"></div>
+
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="close-fullscreen">×</div>
+        <img src="" alt="Fullscreen Image" id="fullscreenImage">
+    </div>
 
     <header>
         <div class="container">
@@ -983,10 +1090,13 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-card-inner">
-                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                        <div class="project-card-front">
                             <div class="project-image">
-                                <div class="project-emoji">🏛️</div>
+                                <img src="pelayanan.png" alt="Sistem Pelayanan Pajak Daerah">
+                            </div>
+                            <div class="project-info">
                                 <div class="project-title">Sistem Pelayanan Pajak Daerah</div>
+                                <button class="detail-button">Lihat Detail</button>
                             </div>
                         </div>
                         <div class="project-card-back">
@@ -999,17 +1109,20 @@
                                 <span class="tech-badge">REST API</span>
                                 <span class="tech-badge">Livewire</span>
                             </div>
-                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                            <button class="back-button">Kembali</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-card-inner">
-                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                        <div class="project-card-front">
                             <div class="project-image">
-                                <div class="project-emoji">🗺️</div>
+                                <img src="map.png" alt="Sistem Peta Pajak Daerah">
+                            </div>
+                            <div class="project-info">
                                 <div class="project-title">Sistem Peta Pajak Daerah</div>
+                                <button class="detail-button">Lihat Detail</button>
                             </div>
                         </div>
                         <div class="project-card-back">
@@ -1022,17 +1135,20 @@
                                 <span class="tech-badge">PostgreSQL</span>
                                 <span class="tech-badge">Spatial Data</span>
                             </div>
-                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                            <button class="back-button">Kembali</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-card-inner">
-                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                        <div class="project-card-front">
                             <div class="project-image">
-                                <div class="project-emoji">💳</div>
+                                <img src="pembayaran.png" alt="Sistem Pembayaran Pajak Daerah">
+                            </div>
+                            <div class="project-info">
                                 <div class="project-title">Sistem Pembayaran Pajak Daerah</div>
+                                <button class="detail-button">Lihat Detail</button>
                             </div>
                         </div>
                         <div class="project-card-back">
@@ -1045,17 +1161,20 @@
                                 <span class="tech-badge">MySQL</span>
                                 <span class="tech-badge">Payment Gateway</span>
                             </div>
-                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                            <button class="back-button">Kembali</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-card-inner">
-                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                        <div class="project-card-front">
                             <div class="project-image">
-                                <div class="project-emoji">📊</div>
+                                <img src="dashboard.png" alt="Dashboard Pajak Daerah">
+                            </div>
+                            <div class="project-info">
                                 <div class="project-title">Dashboard Pajak Daerah</div>
+                                <button class="detail-button">Lihat Detail</button>
                             </div>
                         </div>
                         <div class="project-card-back">
@@ -1068,7 +1187,59 @@
                                 <span class="tech-badge">Oracle</span>
                                 <span class="tech-badge">Data Analytics</span>
                             </div>
-                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                            <button class="back-button">Kembali</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-image">
+                                <img src="penagihan.png" alt="Aplikasi Penagihan Pajak Daerah">
+                            </div>
+                            <div class="project-info">
+                                <div class="project-title">Aplikasi Penagihan Pajak Daerah</div>
+                                <button class="detail-button">Lihat Detail</button>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Sistem penagihan pajak terintegrasi untuk 5 wilayah kota/kabupaten dengan fitur tracking tunggakan, notifikasi otomatis, penjadwalan penagihan, dan laporan realisasi penagihan. Meningkatkan efektivitas pengumpulan pajak daerah secara signifikan.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">PostgreSQL</span>
+                                <span class="tech-badge">Livewire</span>
+                                <span class="tech-badge">Notification WhatsApp Api</span>
+                            </div>
+                            <button class="back-button">Kembali</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-image">
+                                <img src="peta.png" alt="Peta Komoditas Pangan DPMPTSP">
+                            </div>
+                            <div class="project-info">
+                                <div class="project-title">Peta Komoditas Pangan DPMPTSP</div>
+                                <button class="detail-button">Lihat Detail</button>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Aplikasi Web GIS untuk pemetaan dan monitoring komoditas pangan di Kabupaten Kediri. Sistem menampilkan distribusi geografis komoditas pertanian, potensi wilayah, data produksi, dan visualisasi data spasial untuk mendukung perencanaan pembangunan daerah.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">Google Maps API</span>
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">GIS Mapping</span>
+                            </div>
+                            <button class="back-button">Kembali</button>
                         </div>
                     </div>
                 </div>
@@ -1186,7 +1357,7 @@
             }
             animateCursor();
 
-            const hoverElements = document.querySelectorAll('a, button, .project-card-front, .skill-tag');
+            const hoverElements = document.querySelectorAll('a, button, .project-image, .skill-tag');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.classList.add('hover');
@@ -1233,12 +1404,64 @@
             });
         }
 
+        function initProjectCardFlip() {
+            const projectCards = document.querySelectorAll('.project-card');
+            const fullscreenModal = document.getElementById('fullscreenModal');
+            const fullscreenImage = document.getElementById('fullscreenImage');
+            const closeFullscreen = document.querySelector('.close-fullscreen');
+
+            projectCards.forEach(card => {
+                const detailButton = card.querySelector('.detail-button');
+                const backButton = card.querySelector('.back-button');
+                const projectImage = card.querySelector('.project-image');
+                const img = projectImage.querySelector('img');
+
+                detailButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.add('flipped');
+                });
+
+                backButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.remove('flipped');
+                });
+
+                projectImage.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    fullscreenImage.src = img.src;
+                    fullscreenImage.alt = img.alt;
+                    fullscreenModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            closeFullscreen.addEventListener('click', () => {
+                fullscreenModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            fullscreenModal.addEventListener('click', (e) => {
+                if (e.target === fullscreenModal) {
+                    fullscreenModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && fullscreenModal.classList.contains('active')) {
+                    fullscreenModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             observeElements();
             initCustomCursor();
             initSmoothScroll();
             initStaggerAnimation();
+            initProjectCardFlip();
         });
 
         window.addEventListener('scroll', updateScrollProgress);
