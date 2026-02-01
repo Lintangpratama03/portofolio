@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lintang Windy Pratama - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #1a202c;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #60a5fa;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: #60a5fa;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(96, 165, 250, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header dengan glassmorphism effect */
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+            transform: translateY(-100%);
+            animation: slideDown 0.8s forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        /* Underline animation untuk nav links */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+            position: relative;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #ffffff 100%);
+        }
+
+        /* Floating shapes background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(80px);
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s 0.3s forwards;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Profile image dengan gradient border */
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4b5563;
+            font-size: 14px;
+            padding: 8px 16px;
+            background: rgba(96, 165, 250, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Section styling dengan card design */
+        .section {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.08);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle gradient overlay pada section */
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #4b5563;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Timeline styling */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Timeline dot dengan pulse effect */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -44px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-date {
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #1a202c;
+        }
+
+        .timeline-company {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .timeline-desc ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .timeline-desc li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* Custom bullet points */
+        .timeline-desc li::marker {
+            color: #60a5fa;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(96, 165, 250, 0.05) 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(96, 165, 250, 0.1);
+            transition: all 0.4s;
+            opacity: 0;
+            transform: scale(0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover effect dengan gradient background */
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-category:hover::before {
+            left: 100%;
+        }
+
+        .skill-category.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .skill-category h3 {
+            color: #3b82f6;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #4b5563;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.08);
+            transition: all 0.3s;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            transition: all 0.4s;
+            opacity: 0;
+            transform: scale(0.9);
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shine effect pada project image */
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+
+        .project-desc {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(96, 165, 250, 0.1) 100%);
+            color: #3b82f6;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            transition: all 0.3s;
+        }
+
+        .tech-badge:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Education Grid */
+        .education-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .education-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(96, 165, 250, 0.05) 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #3b82f6;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateX(-50px);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.05);
+        }
+
+        .education-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .education-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+            border-left-width: 8px;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .education-degree {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .education-gpa {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .education-school {
+            color: #3b82f6;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .education-details {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .education-details li {
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: #4b5563;
+            border-top: 1px solid rgba(96, 165, 250, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Decorative particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+            opacity: 0.4;
+        }
+
+        @keyframes rise {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+
+            10% {
+                opacity: 0.4;
+            }
+
+            90% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(0.5);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-follower {
+                display: none;
+            }
+
+            .hero-content {
+                padding: 40px 30px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero h2 {
+                font-size: 18px;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+            z-index: 9999;
+            transform-origin: left;
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
+    <!-- Decorative Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">LWP</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-image">LW</div>
+                <h1>Lintang Windy Pratama</h1>
+                <h2>Full Stack Web Developer</h2>
+                <div class="contact-info">
+                    <div class="contact-item">📱 085158311928</div>
+                    <div class="contact-item">✉️ lintangpratama526@gmail.com</div>
+                    <div class="contact-item">📍 Nganjuk, Jawa Timur</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-text">
+                Lulusan D3 Manajemen Informatika dengan pengalaman kerja 2 tahun sebagai Full Stack Web Developer,
+                berfokus pada pengembangan aplikasi web berbasis Laravel. Berpengalaman membangun sistem layanan pajak
+                daerah, mengelola backend, REST API, frontend (HTML, CSS, JS, Livewire), serta database PostgreSQL,
+                MySQL, dan Oracle termasuk data spasial. Terbiasa mengerjakan web GIS & Google Maps API, optimasi
+                performa aplikasi, serta deployment dan maintenance sistem.
+            </p>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience" class="section">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2024 - Present</div>
+                    <div class="timeline-title">Full Stack Developer</div>
+                    <div class="timeline-company">CV Agsatu - Kota Kediri, Jawa Timur</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Mengembangkan dan memelihara aplikasi Pajak Daerah untuk pengelolaan data wajib pajak dan objek pajak</li>
+                            <li>Membangun fitur Penagihan Pajak: status tagihan, monitoring pembayaran, dan pelacakan data pajak</li>
+                            <li>Mengimplementasikan Web GIS & Mapping menggunakan Google Maps API untuk visualisasi data spasial</li>
+                            <li>Mengembangkan backend menggunakan Laravel dan pembuatan RESTful API</li>
+                            <li>Mengelola database PostgreSQL, MySQL, dan Oracle, termasuk query kompleks dan pengolahan data spasial</li>
+                            <li>Melakukan optimasi performa aplikasi dan query database untuk menangani data skala besar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug 2023 - Oct 2023</div>
+                    <div class="timeline-title">Full Stack Developer</div>
+                    <div class="timeline-company">Viscode.id - Kota Kediri, Jawa Timur</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Mengembangkan aplikasi web menggunakan framework CodeIgniter</li>
+                            <li>Mengerjakan pengembangan backend dan frontend fitur aplikasi berbasis kebutuhan klien</li>
+                            <li>Membuat dan mengelola database MySQL, termasuk relasi tabel dan query</li>
+                            <li>Melakukan perbaikan bug, peningkatan fitur, dan penyesuaian sistem</li>
+                            <li>Berkolaborasi dengan tim developer dalam proses pengembangan aplikasi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Backend Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">CodeIgniter</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">Livewire</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Frontend Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Database Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">Spatial Data</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Web GIS & Mapping</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Google Maps API</span>
+                        <span class="skill-tag">Spatial Query</span>
+                        <span class="skill-tag">Data Visualization</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Tools & DevOps</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">🗺️</div>
+                    <div class="project-content">
+                        <div class="project-title">Sistem Pajak Daerah & Web GIS</div>
+                        <div class="project-desc">
+                            Aplikasi terintegrasi untuk pengelolaan pajak daerah di 5 wilayah kota/kabupaten dengan fitur Web GIS
+                            untuk visualisasi data objek pajak dan wilayah administratif menggunakan Google Maps API.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Google Maps API</span>
+                            <span class="tech-badge">Spatial Data</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">💳</div>
+                    <div class="project-content">
+                        <div class="project-title">Sistem Pembayaran Pajak Online</div>
+                        <div class="project-desc">
+                            Platform pembayaran pajak online dengan fitur monitoring status pembayaran real-time,
+                            laporan transaksi, dan integrasi payment gateway untuk kemudahan wajib pajak.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-badge">Laravel</span>
+                            <span class="tech-badge">REST API</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Payment Gateway</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">📊</div>
+                    <div class="project-content">
+                        <div class="project-title">Dashboard Penagihan Pajak</div>
+                        <div class="project-desc">
+                            Dashboard monitoring komprehensif untuk tracking status tagihan, analisis data pembayaran,
+                            dan visualisasi data pajak dengan grafik interaktif untuk mendukung pengambilan keputusan.
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-badge">Livewire</span>
+                            <span class="tech-badge">Chart.js</span>
+                            <span class="tech-badge">Oracle</span>
+                            <span class="tech-badge">Data Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <h2 class="section-title">Education & Achievement</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-header">
+                        <div>
+                            <div class="education-degree">Diploma in Manajemen Informatika</div>
+                            <div class="education-school">Politeknik Negeri Malang</div>
+                        </div>
+                        <div class="education-gpa">GPA 3.92/4.00</div>
+                    </div>
+                    <div class="timeline-date">Aug 2021 - Aug 2024</div>
+                    <div class="education-details">
+                        <ul>
+                            <li>🏆 Lulusan Terbaik Peringkat 3 Jurusan</li>
+                            <li>👥 Kepala Divisi PSDM - Badan Eksekutif Mahasiswa</li>
+                            <li>📚 Aktif dalam kegiatan penelitian dosen</li>
+                            <li>🎯 Koordinator PKM Center untuk pembinaan mahasiswa</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="education-card">
+                    <div class="education-header">
+                        <div>
+                            <div class="education-degree">SMK Teknik Komputer dan Jaringan</div>
+                            <div class="education-school">SMKN 1 Nganjuk</div>
+                        </div>
+                    </div>
+                    <div class="timeline-date">Jul 2016 - Jul 2019</div>
+                    <div class="education-details">
+                        <ul>
+                            <li>💻 Mempelajari dasar-dasar jaringan komputer</li>
+                            <li>⚡ Fondasi programming dan pengembangan software</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Lintang Windy Pratama. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/lintangpratamaa" class="social-link" target="_blank">in</a>
+                <a href="mailto:lintangpratama526@gmail.com" class="social-link">✉</a>
+                <a href="tel:085158311928" class="social-link">📱</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fungsi untuk membuat partikel dekoratif di background
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Fungsi untuk mengobservasi elemen dan menambahkan animasi saat terlihat
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe semua elemen yang memerlukan animasi
+            document.querySelectorAll('.section, .timeline-item, .skill-category, .project-card, .education-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Custom Cursor Effect
+        function initCustomCursor() {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let followerX = 0;
+            let followerY = 0;
+
+            // Update posisi mouse
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Animasi smooth cursor
+            function animateCursor() {
+                // Main cursor mengikuti mouse langsung
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+
+                // Follower mengikuti dengan delay untuk efek smooth
+                followerX += (mouseX - followerX) * 0.1;
+                followerY += (mouseY - followerY) * 0.1;
+
+                follower.style.left = followerX + 'px';
+                follower.style.top = followerY + 'px';
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Efek hover pada elemen interaktif
+            const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-tag');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+        }
+
+        // Scroll Progress Bar
+        function updateScrollProgress() {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY;
+
+            const progress = (scrolled / scrollable) * 100;
+            scrollProgress.style.transform = `scaleX(${progress / 100})`;
+        }
+
+        // Smooth scroll untuk navigasi
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Inisialisasi delay untuk animasi stagger
+        function initStaggerAnimation() {
+            const skillCategories = document.querySelectorAll('.skill-category');
+            skillCategories.forEach((category, index) => {
+                category.style.transitionDelay = index * 0.1 + 's';
+            });
+
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach((card, index) => {
+                card.style.transitionDelay = index * 0.15 + 's';
+            });
+        }
+
+        // Event listener saat DOM loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            observeElements();
+            initCustomCursor();
+            initSmoothScroll();
+            initStaggerAnimation();
+        });
+
+        // Update scroll progress saat scroll
+        window.addEventListener('scroll', updateScrollProgress);
+    </script>
+</body>
+
+</html>
