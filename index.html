@@ -19,7 +19,6 @@
             overflow-x: hidden;
             cursor: none;
         }
-        /* Custom Cursor */
         
         .cursor {
             width: 20px;
@@ -57,7 +56,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header dengan glassmorphism effect */
         
         header {
             background: rgba(255, 255, 255, 0.8);
@@ -110,7 +108,6 @@
             position: relative;
             padding: 5px 10px;
         }
-        /* Underline animation untuk nav links */
         
         .nav-links a::after {
             content: '';
@@ -130,7 +127,6 @@
         .nav-links a:hover::after {
             width: 100%;
         }
-        /* Hero Section */
         
         .hero {
             min-height: 100vh;
@@ -141,7 +137,6 @@
             position: relative;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #ffffff 100%);
         }
-        /* Floating shapes background */
         
         .hero::before {
             content: '';
@@ -193,7 +188,6 @@
                 transform: translateY(0);
             }
         }
-        /* Profile image dengan gradient border */
         
         .profile-image {
             width: 180px;
@@ -262,13 +256,15 @@
             background: rgba(96, 165, 250, 0.05);
             border-radius: 20px;
             transition: all 0.3s;
+            text-decoration: none;
+            cursor: pointer;
         }
         
         .contact-item:hover {
             background: rgba(96, 165, 250, 0.1);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
         }
-        /* Section styling dengan card design */
         
         .section {
             background: rgba(255, 255, 255, 0.98);
@@ -285,7 +281,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Subtle gradient overlay pada section */
         
         .section::before {
             content: '';
@@ -334,7 +329,6 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        /* Timeline styling */
         
         .timeline {
             position: relative;
@@ -365,7 +359,6 @@
             opacity: 1;
             transform: translateX(0);
         }
-        /* Timeline dot dengan pulse effect */
         
         .timeline-item::before {
             content: '';
@@ -420,12 +413,10 @@
             margin-bottom: 5px;
             position: relative;
         }
-        /* Custom bullet points */
         
         .timeline-desc li::marker {
             color: #60a5fa;
         }
-        /* Skills Grid */
         
         .skills-grid {
             display: grid;
@@ -444,7 +435,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Hover effect dengan gradient background */
         
         .skill-category::before {
             content: '';
@@ -502,23 +492,18 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
-        /* Projects Grid */
         
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
         
         .project-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
-            transition: all 0.4s;
+            perspective: 1000px;
             opacity: 0;
             transform: scale(0.9);
-            border: 1px solid rgba(96, 165, 250, 0.1);
+            transition: all 0.6s;
         }
         
         .project-card.visible {
@@ -526,24 +511,48 @@
             transform: scale(1);
         }
         
-        .project-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.2);
+        .project-card-inner {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card.flipped .project-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+        
+        .project-card-front {
+            background: white;
+            cursor: pointer;
         }
         
         .project-image {
             width: 100%;
-            height: 220px;
+            height: 100%;
             background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 64px;
+            font-size: 80px;
             color: white;
             position: relative;
             overflow: hidden;
         }
-        /* Shine effect pada project image */
         
         .project-image::before {
             content: '';
@@ -566,27 +575,52 @@
             }
         }
         
-        .project-content {
-            padding: 25px;
+        .project-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
         }
         
         .project-title {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 10px;
-            color: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .project-desc {
             color: #4b5563;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 15px;
         }
         
         .project-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 20px;
         }
         
         .tech-badge {
@@ -605,7 +639,23 @@
             color: white;
             transform: scale(1.05);
         }
-        /* Education Grid */
+        
+        .back-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
         
         .education-grid {
             display: grid;
@@ -672,7 +722,6 @@
         .education-details li {
             margin-bottom: 5px;
         }
-        /* Footer */
         
         footer {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -711,7 +760,6 @@
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
         }
-        /* Decorative particles */
         
         .particles {
             position: fixed;
@@ -747,7 +795,6 @@
                 transform: translateY(-100vh) scale(0.5);
             }
         }
-        /* Responsive Design */
         
         @media (max-width: 768px) {
             body {
@@ -779,7 +826,6 @@
                 grid-template-columns: 1fr;
             }
         }
-        /* Scroll Progress Bar */
         
         .scroll-progress {
             position: fixed;
@@ -795,17 +841,13 @@
 </head>
 
 <body>
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Scroll Progress Bar -->
     <div class="scroll-progress"></div>
 
-    <!-- Decorative Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- Header Navigation -->
     <header>
         <div class="container">
             <nav>
@@ -821,7 +863,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -829,16 +870,16 @@
                 <h1>Lintang Windy Pratama</h1>
                 <h2>Full Stack Web Developer</h2>
                 <div class="contact-info">
-                    <div class="contact-item">📱 085158311928</div>
-                    <div class="contact-item">✉️ lintangpratama526@gmail.com</div>
+                    <a href="https://wa.me/6285158311928" target="_blank" class="contact-item">📱 085158311928</a>
+                    <a href="mailto:lintangpratama526@gmail.com" class="contact-item">✉️ lintangpratama526@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/lintangpratamaa" target="_blank" class="contact-item">💼 LinkedIn</a>
                     <div class="contact-item">📍 Nganjuk, Jawa Timur</div>
                 </div>
-                </img>
             </div>
+        </div>
     </section>
 
     <div class="container">
-        <!-- About Section -->
         <section id="about" class="section">
             <h2 class="section-title">About Me</h2>
             <p class="about-text">
@@ -847,7 +888,6 @@
             </p>
         </section>
 
-        <!-- Work Experience Section -->
         <section id="experience" class="section">
             <h2 class="section-title">Work Experience</h2>
             <div class="timeline">
@@ -884,7 +924,6 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
         <section id="skills" class="section">
             <h2 class="section-title">Skills & Expertise</h2>
             <div class="skills-grid">
@@ -939,61 +978,103 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
         <section id="projects" class="section">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-image">🗺️</div>
-                    <div class="project-content">
-                        <div class="project-title">Sistem Pajak Daerah & Web GIS</div>
-                        <div class="project-desc">
-                            Aplikasi terintegrasi untuk pengelolaan pajak daerah di 5 wilayah kota/kabupaten dengan fitur Web GIS untuk visualisasi data objek pajak dan wilayah administratif menggunakan Google Maps API.
+                    <div class="project-card-inner">
+                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                            <div class="project-image">
+                                <div class="project-emoji">🏛️</div>
+                                <div class="project-title">Sistem Pelayanan Pajak Daerah</div>
+                            </div>
                         </div>
-                        <div class="project-tech">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">PostgreSQL</span>
-                            <span class="tech-badge">Google Maps API</span>
-                            <span class="tech-badge">Spatial Data</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">💳</div>
-                    <div class="project-content">
-                        <div class="project-title">Sistem Pembayaran Pajak Online</div>
-                        <div class="project-desc">
-                            Platform pembayaran pajak online dengan fitur monitoring status pembayaran real-time, laporan transaksi, dan integrasi payment gateway untuk kemudahan wajib pajak.
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">REST API</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">Payment Gateway</span>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Platform pelayanan terpadu untuk pengelolaan data wajib pajak dan objek pajak di 5 wilayah kota/kabupaten. Sistem mencakup pendaftaran, verifikasi, validasi data, dan layanan administrasi pajak daerah secara komprehensif.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">PostgreSQL</span>
+                                <span class="tech-badge">REST API</span>
+                                <span class="tech-badge">Livewire</span>
+                            </div>
+                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image">📊</div>
-                    <div class="project-content">
-                        <div class="project-title">Dashboard Penagihan Pajak</div>
-                        <div class="project-desc">
-                            Dashboard monitoring komprehensif untuk tracking status tagihan, analisis data pembayaran, dan visualisasi data pajak dengan grafik interaktif untuk mendukung pengambilan keputusan.
+                    <div class="project-card-inner">
+                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                            <div class="project-image">
+                                <div class="project-emoji">🗺️</div>
+                                <div class="project-title">Sistem Peta Pajak Daerah</div>
+                            </div>
                         </div>
-                        <div class="project-tech">
-                            <span class="tech-badge">Livewire</span>
-                            <span class="tech-badge">Chart.js</span>
-                            <span class="tech-badge">Oracle</span>
-                            <span class="tech-badge">Data Analytics</span>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Aplikasi Web GIS untuk visualisasi dan pemetaan objek pajak di 5 wilayah kota/kabupaten. Sistem menampilkan data spasial properti, batas wilayah administratif, dan informasi geografis pajak menggunakan Google Maps API dan teknologi GIS modern.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">Google Maps API</span>
+                                <span class="tech-badge">PostgreSQL</span>
+                                <span class="tech-badge">Spatial Data</span>
+                            </div>
+                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                            <div class="project-image">
+                                <div class="project-emoji">💳</div>
+                                <div class="project-title">Sistem Pembayaran Pajak Daerah</div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Platform pembayaran pajak online untuk 5 wilayah kota/kabupaten dengan monitoring status pembayaran real-time, laporan transaksi otomatis, dan integrasi payment gateway. Memudahkan wajib pajak melakukan pembayaran dengan aman dan efisien.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Laravel</span>
+                                <span class="tech-badge">REST API</span>
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">Payment Gateway</span>
+                            </div>
+                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-card-front" onclick="this.closest('.project-card').classList.add('flipped')">
+                            <div class="project-image">
+                                <div class="project-emoji">📊</div>
+                                <div class="project-title">Dashboard Pajak Daerah</div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <div class="project-desc">
+                                Dashboard monitoring komprehensif untuk tracking status tagihan, analisis data pembayaran, dan visualisasi statistik pajak di 5 wilayah kota/kabupaten dengan grafik interaktif dan real-time analytics untuk mendukung pengambilan keputusan strategis.
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge">Livewire</span>
+                                <span class="tech-badge">Chart.js</span>
+                                <span class="tech-badge">Oracle</span>
+                                <span class="tech-badge">Data Analytics</span>
+                            </div>
+                            <button class="back-button" onclick="this.closest('.project-card').classList.remove('flipped')">Kembali</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education Section -->
         <section id="education" class="section">
             <h2 class="section-title">Education & Achievement</h2>
             <div class="education-grid">
@@ -1035,20 +1116,18 @@
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2024 Lintang Windy Pratama. All Rights Reserved.</p>
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/lintangpratamaa" class="social-link" target="_blank">in</a>
                 <a href="mailto:lintangpratama526@gmail.com" class="social-link">✉</a>
-                <a href="tel:085158311928" class="social-link">📱</a>
+                <a href="https://wa.me/6285158311928" target="_blank" class="social-link">📱</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Fungsi untuk membuat partikel dekoratif di background
         function createParticles() {
             const particles = document.getElementById('particles');
             for (let i = 0; i < 30; i++) {
@@ -1063,7 +1142,6 @@
             }
         }
 
-        // Fungsi untuk mengobservasi elemen dan menambahkan animasi saat terlihat
         function observeElements() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1075,13 +1153,11 @@
                 threshold: 0.1
             });
 
-            // Observe semua elemen yang memerlukan animasi
             document.querySelectorAll('.section, .timeline-item, .skill-category, .project-card, .education-card').forEach(el => {
                 observer.observe(el);
             });
         }
 
-        // Custom Cursor Effect
         function initCustomCursor() {
             const cursor = document.querySelector('.cursor');
             const follower = document.querySelector('.cursor-follower');
@@ -1091,19 +1167,15 @@
             let followerX = 0;
             let followerY = 0;
 
-            // Update posisi mouse
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
             });
 
-            // Animasi smooth cursor
             function animateCursor() {
-                // Main cursor mengikuti mouse langsung
                 cursor.style.left = mouseX + 'px';
                 cursor.style.top = mouseY + 'px';
 
-                // Follower mengikuti dengan delay untuk efek smooth
                 followerX += (mouseX - followerX) * 0.1;
                 followerY += (mouseY - followerY) * 0.1;
 
@@ -1114,8 +1186,7 @@
             }
             animateCursor();
 
-            // Efek hover pada elemen interaktif
-            const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-tag');
+            const hoverElements = document.querySelectorAll('a, button, .project-card-front, .skill-tag');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.classList.add('hover');
@@ -1126,7 +1197,6 @@
             });
         }
 
-        // Scroll Progress Bar
         function updateScrollProgress() {
             const scrollProgress = document.querySelector('.scroll-progress');
             const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -1136,7 +1206,6 @@
             scrollProgress.style.transform = `scaleX(${progress / 100})`;
         }
 
-        // Smooth scroll untuk navigasi
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -1152,7 +1221,6 @@
             });
         }
 
-        // Inisialisasi delay untuk animasi stagger
         function initStaggerAnimation() {
             const skillCategories = document.querySelectorAll('.skill-category');
             skillCategories.forEach((category, index) => {
@@ -1165,7 +1233,6 @@
             });
         }
 
-        // Event listener saat DOM loaded
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             observeElements();
@@ -1174,7 +1241,6 @@
             initStaggerAnimation();
         });
 
-        // Update scroll progress saat scroll
         window.addEventListener('scroll', updateScrollProgress);
     </script>
 </body>
