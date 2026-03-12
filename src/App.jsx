@@ -722,7 +722,7 @@ export default function App() {
               >{s.l}</a>
             ))}
           </div>
-          <div className="mono" style={{fontSize:9,color:"rgba(226,232,240,0.16)",letterSpacing:2}}>React + Anime.js</div>
+          <div className="mono" style={{fontSize:9,color:"rgba(226,232,240,0.16)",letterSpacing:2}}></div>
         </div>
       </footer>
     </>
